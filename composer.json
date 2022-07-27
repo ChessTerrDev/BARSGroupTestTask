@@ -1,0 +1,18 @@
+{
+    "name": "roman/bars-group-test-task",
+    "description": "Тестовое задание для БАРС групп",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "BarsGroupTestTask\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Roman",
+            "email": "chess.terr.dev@yandex.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

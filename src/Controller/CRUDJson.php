@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace BARSGroupTestTask\Controller;
 
 use BARSGroupTestTask\Model\Entities\LPU;
-use BARSGroupTestTask\Controller\Message;
+use BARSGroupTestTask\Lib\Message;
 
 class CRUDJson extends AbstractCRUD
 {
@@ -49,7 +49,7 @@ class CRUDJson extends AbstractCRUD
         foreach ($this->data->jsonObject->LPU as $key => $entry)
         {
             if ($entry->id == $id)
-                return $key;
+                return (int)$key;
         }
 
         return false;
@@ -62,7 +62,8 @@ class CRUDJson extends AbstractCRUD
      */
     public function updateEntry(LPU $lpu): bool | Message
     {
-        if (empty($lpu->getId())) return false;
+        if (empty($lpu->getId()))
+            return (new Message('Ошибка! Нужно передать ID записи'));
 
         foreach ($this->data->jsonObject->LPU as $key => $entry)
         {
@@ -97,7 +98,7 @@ class CRUDJson extends AbstractCRUD
     public function deleteEntry(LPU $lpu): bool|Message
     {
         $emptyEntry = $this->getEntryById($lpu->getId());
-        if (!empty($lpu->getId()) && $emptyEntry)
+        if (!empty($lpu->getId()) && $emptyEntry !== false)
         {
             unset($this->data->jsonObject->LPU[$emptyEntry]);
             $this->data->save();

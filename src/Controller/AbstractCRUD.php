@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace BARSGroupTestTask\Controller;
 
+use BARSGroupTestTask\lib\Message;
 use BARSGroupTestTask\Model\Entities\LPU;
 
 abstract class AbstractCRUD

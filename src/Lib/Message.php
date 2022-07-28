@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace BARSGroupTestTask\Controller;
+namespace BARSGroupTestTask\lib;
 
 class Message
 {

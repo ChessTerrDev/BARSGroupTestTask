@@ -5,6 +5,6 @@ namespace BARSGroupTestTask\Controller;
 
 interface DataInterface
 {
-    public function setData($data): void;
-    public function getData();
+    public function setData(object $data): void;
+    public function getData():object;
 }

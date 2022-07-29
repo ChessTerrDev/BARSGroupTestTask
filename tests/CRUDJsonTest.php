@@ -31,16 +31,16 @@ class CRUDJsonTest extends TestCase
 
         $CRUDJson->addEntry($testLPU);
 
-        $rez = json_decode(file_get_contents($jsonPath));
+        $rez = json_decode(file_get_contents($jsonPath), true);
 
-        $this->assertNotEmpty($rez->LPU[0]);
-        $this->assertIsObject($rez->LPU[0]);
-        $entry = $rez->LPU[0];
-        $this->assertSame($testLPU->getId(), $entry->id);
-        $this->assertSame($testLPU->getHid(), $entry->hid);
-        $this->assertSame($testLPU->getFullName(), $entry->full_name);
-        $this->assertSame($testLPU->getAddress(), $entry->address);
-        $this->assertSame($testLPU->getPhone(), $entry->phone);
+        $this->assertNotEmpty($rez['LPU'][0]);
+        $this->assertIsArray($rez['LPU'][0]);
+        $entry = $rez['LPU'][0];
+        $this->assertSame($testLPU->getId(), $entry['id']);
+        $this->assertSame($testLPU->getHid(), $entry['hid']);
+        $this->assertSame($testLPU->getFullName(), $entry['full_name']);
+        $this->assertSame($testLPU->getAddress(), $entry['address']);
+        $this->assertSame($testLPU->getPhone(), $entry['phone']);
     }
 
     public function testGetEntryById()
@@ -88,14 +88,14 @@ class CRUDJsonTest extends TestCase
         $rez = $CRUDJson->getAllEntries();
 
         $this->assertIsArray($rez);
-        $this->assertIsObject($rez[0]);
+        $this->assertIsArray($rez[0]);
 
         $testObj = (object)$testData;
-        $this->assertSame($testObj->id, $rez[0]->id);
-        $this->assertSame($testObj->hid, $rez[0]->hid);
-        $this->assertSame($testObj->full_name, $rez[0]->full_name);
-        $this->assertSame($testObj->address, $rez[0]->address);
-        $this->assertSame($testObj->phone, $rez[0]->phone);
+        $this->assertSame($testObj->id, $rez[0]['id']);
+        $this->assertSame($testObj->hid, $rez[0]['hid']);
+        $this->assertSame($testObj->full_name, $rez[0]['full_name']);
+        $this->assertSame($testObj->address, $rez[0]['address']);
+        $this->assertSame($testObj->phone, $rez[0]['phone']);
 
     }
 

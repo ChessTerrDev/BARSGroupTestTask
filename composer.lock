@@ -371,12 +371,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "3032f88c16e0f659826caaba86eb5cceab4c7726"
+                "reference": "407c40dcfb0250d015a6996c99db4bf3194aaca9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/3032f88c16e0f659826caaba86eb5cceab4c7726",
-                "reference": "3032f88c16e0f659826caaba86eb5cceab4c7726",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/407c40dcfb0250d015a6996c99db4bf3194aaca9",
+                "reference": "407c40dcfb0250d015a6996c99db4bf3194aaca9",
                 "shasum": ""
             },
             "require": {
@@ -421,7 +421,7 @@
                 "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
                 "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/master"
             },
-            "time": "2022-07-22T14:19:31+00:00"
+            "time": "2022-07-27T20:03:43+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -548,12 +548,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "259eb8767efee94427c40bb978786e08ef8c799c"
+                "reference": "af2fba18e7cd31c11bfa30616095e08bcefa3c2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/259eb8767efee94427c40bb978786e08ef8c799c",
-                "reference": "259eb8767efee94427c40bb978786e08ef8c799c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/af2fba18e7cd31c11bfa30616095e08bcefa3c2b",
+                "reference": "af2fba18e7cd31c11bfa30616095e08bcefa3c2b",
                 "shasum": ""
             },
             "require": {
@@ -617,7 +617,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-07-23T07:48:54+00:00"
+            "time": "2022-07-29T05:35:40+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

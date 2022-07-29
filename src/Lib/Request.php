@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace BARSGroupTestTask\lib;
+namespace BARSGroupTestTask\Lib;
 
 class Request
 {

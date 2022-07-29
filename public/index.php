@@ -10,7 +10,6 @@ use BARSGroupTestTask\Controller\CRUDJson;
 use BARSGroupTestTask\Model\Entities\LPU;
 use BARSGroupTestTask\Lib\OAuth;
 
-$jsonPath = __DIR__ . '/../data/lpu.json';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +62,7 @@ $jsonPath = __DIR__ . '/../data/lpu.json';
                 <tbody id="listLPUtbody">
                 <?php
                 $CRUDJson = new CRUDJson(
-                    new DataJson($jsonPath)
+                    new DataJson(\BARSGroupTestTask\Config::JSON_DATA_PATH)
                 );
                 $list = $CRUDJson->getAllEntries();
                 $arrayHidNull = [];

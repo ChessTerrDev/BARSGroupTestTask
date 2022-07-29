@@ -8,6 +8,7 @@ require_once '../vendor/autoload.php';
 use BARSGroupTestTask\Controller\DataJson;
 use BARSGroupTestTask\Controller\CRUDJson;
 use BARSGroupTestTask\Model\Entities\LPU;
+use BARSGroupTestTask\Lib\OAuth;
 
 $jsonPath = __DIR__ . '/../data/lpu.json';
 ?>
@@ -21,7 +22,7 @@ $jsonPath = __DIR__ . '/../data/lpu.json';
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
 <body>
-<input id="authToken" type="hidden" name="token" value="123"/>
+<input id="authToken" type="hidden" name="token" value="<?=OAuth::generationToken()?>"/>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
         <title>Bootstrap</title>

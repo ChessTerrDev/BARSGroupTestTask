@@ -9,10 +9,17 @@ require_once '../vendor/autoload.php';
 use BARSGroupTestTask\Controller\{CRUDJson, DataJson};
 use BARSGroupTestTask\Lib\Request;
 use BARSGroupTestTask\Model\Entities\LPU;
-use JetBrains\PhpStorm\NoReturn;
+use BARSGroupTestTask\Config;
+use BARSGroupTestTask\Lib\OAuth;
+
+if (!OAuth::verificationToken(OAuth::getTokenFromHeader()))
+    exit(json_encode([
+        'status' => false,
+        'data' => [],
+        'error' => 'Передан неверный или устаревший Токен!'
+    ]));
 
 
-$jsonDataPath = (require_once '../settings/dependencies.php')['jsonDataPath'];
 function sendJson(mixed $result, LPU $lpu): string
 {
     $error = false;
@@ -25,7 +32,7 @@ function sendJson(mixed $result, LPU $lpu): string
 
     return json_encode([
         'status' => $result,
-        'data' => $lpu->getAllFields(),
+        'data' => [...$lpu->getAllFields(), ...[OAuth::getTokenFromHeader()]],
         'error' => $error
     ]);
 
@@ -46,7 +53,7 @@ function setLPU():LPU
 if (Request::getPost('delete'))
 {
     $CRUDJson = new CRUDJson(
-        new DataJson($jsonDataPath)
+        new DataJson(Config::JSON_DATA_PATH)
     );
 
     $lpu = new LPU();
@@ -63,7 +70,7 @@ if (Request::getPost('delete'))
 if (Request::getPost('edit'))
 {
     $CRUDJson = new CRUDJson(
-        new DataJson($jsonDataPath)
+        new DataJson(Config::JSON_DATA_PATH)
     );
     $lpu = setLPU();
 
@@ -79,7 +86,7 @@ if (Request::getPost('create'))
 {
 
     $CRUDJson = new CRUDJson(
-        new DataJson($jsonDataPath)
+        new DataJson(Config::JSON_DATA_PATH)
     );
     $lpu = setLPU();
 

@@ -110,6 +110,26 @@ class Request
     }
 
     /**
+     * Получите значение для $key в массиве $_SERVER. Если значение не существует, будет возвращено значение по умолчанию.
+     * @param $key = key
+     * @param $defaultValue = default value
+     * @param mixed|null $filter filter, e.g. 'str'|'string'|'strval', 'int'|'integer'|'intval', 'float'|'floatval', 'bool'|'boolean'|'boolval', 'trim'
+     * <code>
+     * // Возвращаемое значение для 'foo' или NULL, если $key не существует
+     * $value = Request::getRequest('foo');
+     * </code>
+     * <code>
+     * // Возвращаемое значение для 'foo' или 'bar', если $key не существует
+     * $value = Request::getRequest('foo', 'bar');
+     * </code>
+     * @return mixed
+     */
+    static public function getServer($key, $defaultValue = NULL, mixed $filter = NULL): mixed
+    {
+        return self::get($_SERVER, $key, $defaultValue, $filter);
+    }
+
+    /**
      * Получите значение для $key в массиве $_POST. Если значение не существует, будет возвращено значение по умолчанию.
      * @param $key = key
      * @param $defaultValue = default value

@@ -18,16 +18,24 @@ class CRUDJson extends AbstractCRUD
      * @param \BARSGroupTestTask\Model\Entities\LPU $lpu
      * @return void
      */
-    public function addEntry(LPU $lpu):void
+    public function addEntry(LPU $lpu): bool | Message
     {
-        $emptyEntry = $this->getEntryById($lpu->getId());
-        if (!empty($lpu->getId()) && $emptyEntry)
-        {
-            $this->replaceEntry($emptyEntry, (object)$lpu->getAllFields());
-        }
+        if (empty($lpu->getId()))
+            return (new Message('Ошибка! Нужно передать ID записи'));
+        if (empty($lpu->getFullName()))
+            return (new Message('Ошибка! Нужно указать Наименование записи'));
+        if (empty($lpu->getAddress()))
+            return (new Message('Ошибка! Нужно указать адрес ЛПУ'));
 
-        $this->data->jsonObject->LPU[] = (object)$lpu->getAllFields();
+        $emptyEntry = $this->getEntryById($lpu->getId());
+        if ($emptyEntry)
+            $this->replaceEntry($emptyEntry, $lpu->getAllFields());
+
+
+        $this->data->jsonArray['LPU'][] = $lpu->getAllFields();
         $this->data->save();
+
+        return true;
     }
 
     /**
@@ -36,7 +44,7 @@ class CRUDJson extends AbstractCRUD
      */
     public function getAllEntries(): array
     {
-        return (array)$this->data->jsonObject->LPU;
+        return (array)$this->data->jsonArray['LPU'];
     }
 
     /**
@@ -46,9 +54,9 @@ class CRUDJson extends AbstractCRUD
      */
     public function getEntryById(string $id): int | false
     {
-        foreach ($this->data->jsonObject->LPU as $key => $entry)
+        foreach ($this->data->jsonArray['LPU'] as $key => $entry)
         {
-            if ($entry->id == $id)
+            if ($entry['id'] == $id)
                 return (int)$key;
         }
 
@@ -65,11 +73,11 @@ class CRUDJson extends AbstractCRUD
         if (empty($lpu->getId()))
             return (new Message('Ошибка! Нужно передать ID записи'));
 
-        foreach ($this->data->jsonObject->LPU as $key => $entry)
+        foreach ($this->data->jsonArray['LPU'] as $key => $entry)
         {
-            if ($entry->id == $lpu->getId()) {
+            if ($entry['id'] == $lpu->getId()) {
 
-                $this->replaceEntry($key, (object)$lpu->getAllFields());
+                $this->replaceEntry($key, $lpu->getAllFields());
 
                 return true;
             }
@@ -86,7 +94,7 @@ class CRUDJson extends AbstractCRUD
      */
     private function replaceEntry(int $key, $obj): void
     {
-        $this->data->jsonObject->LPU[$key]  = $obj;
+        $this->data->jsonArray['LPU'][$key]  = $obj;
         $this->data->save();
     }
 
@@ -97,15 +105,22 @@ class CRUDJson extends AbstractCRUD
      */
     public function deleteEntry(LPU $lpu): bool|Message
     {
+        if (empty($lpu->getId()))
+            return (new Message('Ошибка! Нужно передать ID записи'));
+
+
         $emptyEntry = $this->getEntryById($lpu->getId());
-        if (!empty($lpu->getId()) && $emptyEntry !== false)
+        if ($emptyEntry !== false && is_int($emptyEntry))
         {
-            unset($this->data->jsonObject->LPU[$emptyEntry]);
+            unset($this->data->jsonArray['LPU'][$emptyEntry]);
+            $this->data->jsonArray['LPU'] = array_values($this->data->jsonArray['LPU']);
             $this->data->save();
 
-            return true;
+        } else {
+
+            return (new Message('Нет записи с таким ID'));
         }
 
-        return (new Message('Нет записи с таким ID'));
+        return true;
     }
 }

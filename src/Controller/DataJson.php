@@ -6,7 +6,7 @@ namespace BARSGroupTestTask\Controller;
 class DataJson implements DataInterface
 {
     private string $fname;
-    public object $jsonObject;
+    public array  $jsonArray;
 
     /**
      * Загрузить в файл и объект json
@@ -17,14 +17,14 @@ class DataJson implements DataInterface
         $this->load($fname);
     }
 
-    public function setData(object $data): void
+    public function setData($data): void
     {
-        $this->jsonObject = $data;
+        $this->jsonArray = $data;
     }
 
-    public function getData(): object
+    public function getData()
     {
-        return $this->jsonObject;
+        return $this->jsonArray;
     }
 
     /**
@@ -35,12 +35,12 @@ class DataJson implements DataInterface
         $this->fname = $fname;
         if (file_exists($this->fname)) {
             $contents = file_get_contents($this->fname);
-            $this->jsonObject = json_decode($contents);
+            $this->jsonArray = json_decode($contents, true);
         } else {
-            $this->jsonObject = json_decode("[]");
+            $this->jsonArray = json_decode("[]", true);
         }
 
-        $data =& $this->jsonObject;
+        $data =& $this->jsonArray;
         return $data;
     }
 
@@ -57,7 +57,7 @@ class DataJson implements DataInterface
             mkdir($dir, 0777, true);
         }
 
-
-        return file_put_contents($this->fname, json_encode($this->jsonObject));
+        //var_dump($this->jsonObject);
+        return file_put_contents($this->fname, json_encode($this->jsonArray));
     }
 }

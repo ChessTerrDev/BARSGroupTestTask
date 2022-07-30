@@ -55,7 +55,7 @@ USER nobody
 # Add application
 COPY --chown=nobody ./ /var/www/html/
 
-RUN composer install
+RUN composer install --no-cache
 
 RUN chmod 777 /var/www/html/data/lpu.json
 
